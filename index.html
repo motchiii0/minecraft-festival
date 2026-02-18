@@ -2,72 +2,39 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>マイクラ祭りマップ</title>
-  <link rel="stylesheet" href="style.css">
+  <title>裏切り者は誰だ？</title>
 </head>
-
 <body>
 
-  <!-- サイト全体タイトル -->
-  <div class="header">
-    <h1>マイクラ祭りマップ</h1>
-    <p>
-        <!-- なくてもいいかな -->
-    </p>
-  </div>
-  <!-- サイト全体タイトルここまで -->
+  <h1>裏切り者は誰だ？</h1>
+  <button id="createRoom">部屋を作る</button>
 
-  <!-- マップ概要 -->
-  <div class="section">
-    <h2>マップ概要</h2>
-    <p>
-          マップ内には複数のミニゲームや肝試しが配置されており、
-          好きな順番で回って遊ぶことができます。
-        </p>
-    <img src="worldmap.png" alt="マイクラ祭りマップ全体像">
-  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-  <!-- ミニゲーム紹介 -->
-  <div class="mimigame">
-    <h2>ミニゲーム紹介</h2>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA-gBEo_6K8oAMP_GlYy0HjvBvuA4iI_Pg",
+      authDomain: "vs2game-e595e.firebaseapp.com",
+      projectId: "vs2game-e595e",
+      storageBucket: "vs2game-e595e.firebasestorage.app",
+      messagingSenderId: "689658658123",
+      appId: "1:689658658123:web:8ac6df8f14798b5186fcce",
+      measurementId: "G-L5B22F274S"
+    };
 
-    <div class="shateki">
-      <h3>射的</h3>
-      <img src="shateki.png" alt="射的">
-      <p>
-        動く的を狙ってポイントを獲得するミニゲームです。
-      </p>
-    </div>
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-    <div class="kingyo">
-        <h3>金魚掬い</h3>
-        <img src="kingyo.png" alt="金魚掬い">
-        <p>
-            タイミングよくボタンを押して金魚を獲得するミニゲームです。
-    　　</p>
-    </div>
+    document.getElementById("createRoom").addEventListener("click", async () => {
+      const docRef = await addDoc(collection(db, "rooms"), {
+        phase: "waiting",
+        createdAt: Date.now()
+      });
 
-    <div class="nazotoki">
-      <h3>謎解き脱出ゲーム</h3>
-      <img src="nazotoki.png" alt="謎解きミニゲーム">
-      <p>
-        謎を解いて脱出するミニゲームです。
-      </p>
-    </div>
-
-    <div class="killerchair">
-      <h3>キラーチェア</h3>
-      <img src="killerchair.png" alt="キラーチェア">
-      <p>
-        ラウンド毎に少なくなる椅子に座り続け、最後まで生き残るミニゲームです。
-      </p>
-    </div>
-
-  </div>
-
-  <!-- フッター -->
-  <div class="footer">
-    <p>© マイクラ祭りマップ制作チーム</p>
-  </div>
+      alert("部屋作成！ID: " + docRef.id);
+    });
+  </script>
 
 </body>
+</html>
