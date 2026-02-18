@@ -1,40 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>裏切り者は誰だ？</title>
+  <title>マイクラ祭りマップ - Opening</title>
+
+  <!-- ここ重要：遷移時間を延ばして花火を見せる -->
+  <meta http-equiv="refresh" content="5;url=main.html">
+
+  <link rel="stylesheet" href="opening.css">
 </head>
+
 <body>
+  <div id="opening">
+    <div class="square"></div>
+    <!-- 左右に分かれる写真 -->
+    <img src="photo_left.png" class="photo left" alt="left photo">
+    <img src="photo_right.png" class="photo right" alt="right photo">
 
-  <h1>裏切り者は誰だ？</h1>
-  <button id="createRoom">部屋を作る</button>
+    <!-- 花火GIF -->
+    <img src="fireworks.gif" class="fireworks" alt="fireworks">
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA-gBEo_6K8oAMP_GlYy0HjvBvuA4iI_Pg",
-      authDomain: "vs2game-e595e.firebaseapp.com",
-      projectId: "vs2game-e595e",
-      storageBucket: "vs2game-e595e.firebasestorage.app",
-      messagingSenderId: "689658658123",
-      appId: "1:689658658123:web:8ac6df8f14798b5186fcce",
-      measurementId: "G-L5B22F274S"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    document.getElementById("createRoom").addEventListener("click", async () => {
-      const docRef = await addDoc(collection(db, "rooms"), {
-        phase: "waiting",
-        createdAt: Date.now()
-      });
-
-      alert("部屋作成！ID: " + docRef.id);
-    });
-  </script>
-
+  </div>
 </body>
 </html>
